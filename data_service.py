@@ -2,7 +2,7 @@
 # читання та виведення для вызуального контролю
 
 # читання файла markets
-def get_price():
+def get_markets():
     """читання файла 'markets'
     та формування списку цін
     повертає список цін
@@ -10,17 +10,17 @@ def get_price():
 
     # накопичення даних файлу у списку
     with open("./data/markets.csv", 'r') as f:
-        prices = f.readlines()
+        markets = f.readlines()
 
     # підготовка даних для подальшої обробки
-        prices_splitted = []
+        markets_splitted = []
     # порізати в циклі строки на окремі елементи
-        for price in prices:
-            obj = split_line(price)
+        for markets in markets:
+            obj = split_line(markets)
             obj[0] = int(obj[0])
-            prices_splitted.append(obj)
+            markets_splitted.append(obj)
 
-    return prices_splitted 
+    return markets_splitted 
 
 
 def split_line(line):
@@ -30,81 +30,81 @@ def split_line(line):
 
 
 # читання файла goods
-def get_group():
+def get_goods():
     """читання файла 'goods'
     та формування списку товарних груп 
     повертає список товарних груп
     """
     #накопичення даних файлу у списку
     with open("./data/goods.csv", 'r') as f:
-        groups = f.readlines()
+        goods = f.readlines()
 
     # підготовка даних для подальшої обробки
-        groups_splitted = []
+        goods_splitted = []
     # порізати в циклі строки на окремі елементи
-        for group in groups:
-            obj = split_line(group)
+        for goods in goods:
+            obj = split_line(goods)
             obj[0] = int(obj[0])
-            groups_splitted.append(obj)
+            goods_splitted.append(obj)
 
-    return groups_splitted 
+    return goods_splitted 
 
 
 # вивід списку цін
-def show_prices(prices):
+def show_markets(markets):
     """виводить список клієнтів по заданому інтервалу кодів
     """
     # задати інтервал кодів
-    price_code_from = int(input('З якого кода ціни? '))
-    price_code_to = int(input('До якого кода ціни? '))
+    markets_code_from = int(input('З якого кода ринкові ціни? '))
+    markets_code_to = int(input('До якого кода ринкові ціни? '))
 
 
     # відбір списку цін 
-    filtered_prices = []
-    for price in prices:
-        if price_code_from <= price[0] <= price_code_to:
-            filtered_prices.append(price)
+    filtered_markets = []
+    for markets in markets:
+        if markets_code_from <= markets[0] <= markets_code_to:
+            filtered_markets.append(markets)
 
-    if len(filtered_prices) == 0:
-        print('В списку цін нема таких кодів')
+    if len(filtered_markets) == 0:
+        print('В списку ринкових цін нема таких кодів')
         return
 
 
     # вивід списку
-    print('СПИСОК ЦІН')
-    for price in filtered_prices:
-        print(f'код товарної групи: {price[0]:3}  план: {price[1]:20} очікуєме виконання: {price[2]:25} рік{price[3][:-1]:30}')
+    print('СПИСОК РИНКОВИХ ЦІН')
+    for markets in filtered_markets:
+        print(f'код товару: {markets[0]:3}  ринкові ціни на 2.11: {markets[1]:20} ринкові ціни на 10.11: {markets[1]:20} ринкові ціни на 14.11: {markets[1]:20} ринкові ціни на 24.11: {markets[1]:20} рік{markets[3][:-1]:30}')
 
 # вивід списку товарних груп
-def show_groups(groups):
-    """виводить список клієнтів по заданому інтервалу кодів
+def show_goods(goods):
+    """виводить список товарів по заданому інтервалу кодів
     """
     # задати інтервал кодів
-    group_code_from = int(input('З якого кода товарної групи? '))
-    group_code_to = int(input('До якого кода товарної групи? '))
+    goods_code_from = int(input('З якого кода довідника товарів? '))
+    goods_code_to = int(input('До якого кода довідника товарів? '))
 
 
     # відбір списку цін 
-    filtered_groups = []
-    for group in groups:
-        if group_code_from <= group[0] <= group_code_to:
-            filtered_groups.append(group)
+    filtered_goods = []
+    for goods in goods:
+        if goods_code_from <= goods[0] <= goods_code_to:
+            filtered_goods.append(goods)
 
-    if len(filtered_groups) == 0:
-        print('В списку цін нема таких кодів')
+    if len(filtered_goods) == 0:
+        print('В списку товарів нема таких кодів')
         return
 
 
     # вивід списку
-    print('СПИСОК ЦІН')
-    for group in filtered_groups:
-        print(f'код товарної групи: {group[0]:3} найменування тов групи: {group[1]:20} торгова знижка: {group[2][:-1]:25}')
+    print('СПИСОК ТОВАРІВ')
+    for goods in filtered_goods:
+        print(f'код товару: {goods[0]:3} найменування товару: {goods} од.виміру: {goods} роздрібна ціна: {goods[1]:20}')
 
 if __name__ == '__main__':
-    prices = get_price()
-    groups = get_group()
+    markets = get_markets()
+    goods = get_goods()
 
-    show_prices(prices)
-    show_groups(groups)
+    show_markets(markets)
+    show_goods(goods)
     
     pass
